@@ -12,6 +12,15 @@ call print_string
 mov bx , GOODBYE_PRINT
 call print_string
 
+mov bx , 'D'
+call print_char
+
+mov dx , 0x1111
+call print_hex
+
+mov dx , 0x1fb6
+call print_hex
+
 ; Hang
 jmp $
 
@@ -19,10 +28,18 @@ jmp $
 
 ; Data
 HELLO_PRINT:
-db 'HelloWorld', 0
+db 'HelloWorld! ', 0
 
 GOODBYE_PRINT:
-db 'ByeWorld !', 0
+db 'ByeWorld ! ', 0
+
+HEXA_BASE:
+db '0x0000 ', 0
+
+HEXA_ASCII:
+db '0123456789abcdef', 0
+
+
 
 times 510 -( $ - $$ ) db 0
 dw 0xAA55
