@@ -1,8 +1,10 @@
-; Boot loader print HelloWorld
+; Find the address
 
 mov ah, 0x0e
 
-mov al, 'H'
+mov bx, print_char_H
+add bx, 0x7c00
+mov al, [bx]
 int 0x10
 mov al, 'e'
 int 0x10
@@ -22,6 +24,9 @@ mov al, 'l'
 int 0x10
 mov al, 'D'
 int 0x10
+
+print_char_H:
+	db "H"
 
 loop:
 jmp loop
