@@ -1,59 +1,28 @@
-; Find the address
+; Boot sector printing string
 
-mov ah, 0x0e
+ADDRESS_START equ 0x7c00
 
-; Set Stack base
-mov bp, 0x8000
-; Set Stack pointer to base
-mov sp, bp
+; Load the code at this address
+;[org ADDRESS_START]
 
-push 'W'
-push 'l'
-push 'e'
+; bx as parameter
+mov bx , HELLO_PRINT
+call print_string
 
+mov bx , GOODBYE_PRINT
+call print_string
 
-mov bx, print_char_H
-add bx, 0x7c00
-mov al, [bx]
-int 0x10
+; Hang
+jmp $
 
-pop bx
-mov al, bl
-int 0x10
+%include "print_function.asm"
 
-pop bx
-mov al, bl
-int 0x10
+; Data
+HELLO_PRINT:
+db 'HelloWorld', 0
 
-int 0x10
+GOODBYE_PRINT:
+db 'ByeWorld !', 0
 
-mov al, 'o'
-int 0x10
-
-pop bx
-mov al, bl
-int 0x10
-
-mov al, 'o'
-int 0x10
-
-mov al, 'r'
-int 0x10
-
-mov al, 'l'
-int 0x10
-
-mov al, 'd'
-int 0x10
-
-print_char_H:
-	db "H"
-
-string :
-	db 'Booting OS' , 0 ; Null terminated
-
-loop:
-jmp loop
-times 510 -( $ - $$ ) db 0 	; Fill the program with 510 bytes (db 0) to the 510 byte.
-dw 0xaa55 			; Magic number for boot sector.
-
+times 510 -( $ - $$ ) db 0
+dw 0xAA55
