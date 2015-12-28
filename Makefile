@@ -1,4 +1,4 @@
-all: run
+all: sub_make
 
 run: sub_make
 	qemu-system-i386 -monitor stdio -hda boot_sector.bin
