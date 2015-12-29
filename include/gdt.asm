@@ -37,5 +37,6 @@ gdt_descriptor:
 dw gdt_end - gdt_start - 1
 dd gdt_start
 
-CODE_SEG equ gdt_code - gdt_start
-DATA_SEG equ gdt_data - gdt_start
+; 3 LSB are not used!
+CODE_SEG equ 8
+DATA_SEG equ 16
