@@ -1,9 +1,7 @@
-# bos
-
-Basic OS
+Basic OS (Bos)
 ========
 
-Using QEMU
+Using QEMU and BOCHS
 
 Boot loader
 -----------
@@ -47,7 +45,14 @@ CPU has cs, ds, ss, and es called segment registers.
 
 Extend CPU functionalities
 ---------------------------
-* USe 32bit mode
+* Use 32bit mode
+ * extend the 16bits registers to 32bits
+ * add 2 general purpose registers
+ * 32 bit memory offset
+ * Can have virtual memory
+ * Need a Global Descriptor Table (GDT) to define memory segment and their attributes
+  
+
 
 Use higher level languages
 --------------------------
