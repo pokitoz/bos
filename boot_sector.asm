@@ -47,7 +47,7 @@ call print_hex
 ; Hang
 jmp $
 
-%include "print_function.asm"
+%include "./include/print_function.asm"
 
 ; Data
 HELLO_PRINT:

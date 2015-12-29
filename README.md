@@ -32,6 +32,17 @@ x86 CPUs have four general purpose registers: ax, bx, cx, and dx
 that can be usedin particular routines
 
 
+BIOS always load the boot sector to the address 0x7c00
+
+
+Too small numbr of registers, need to use the stack
+pop, push
+The stack is implemented by two special CPU registers, bp and sp, which maintain
+the addresses of the stack base (i.e. the stack bottom) and the stack top respectively.
+
+
+CPU has cs, ds, ss, and es called segment registers.
+
 
 
 Baremetal programming
