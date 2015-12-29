@@ -15,15 +15,34 @@ call print_string
 mov bx , '*'
 call print_char
 
-mov dx , 0x1784
+mov dx , 0x0000
 call print_hex
 
 mov bx , '*'
 call print_char
 
-
-mov dx , 0x1fb6
+mov dx , 0x1234
 call print_hex
+
+mov bx , '*'
+call print_char
+
+mov dx , 0xffff
+call print_hex
+
+mov bx , '*'
+call print_char
+
+mov dx , 0xabcd
+call print_hex
+
+mov bx , '*'
+call print_char
+
+mov dx , 0x1478
+call print_hex
+
+
 
 ; Hang
 jmp $
@@ -39,9 +58,6 @@ db 'ByeWorld ! ', 0
 
 HEXA_BASE:
 db '0x0000', 0
-
-HEXA_ASCII:
-db '0123456789abcdef', 0
 
 
 
