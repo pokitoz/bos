@@ -12,11 +12,15 @@ call print_string
 mov bx , GOODBYE_PRINT
 call print_string
 
-mov bx , 'D'
+mov bx , '*'
 call print_char
 
-mov dx , 0x1111
+mov dx , 0x1784
 call print_hex
+
+mov bx , '*'
+call print_char
+
 
 mov dx , 0x1fb6
 call print_hex
@@ -34,7 +38,7 @@ GOODBYE_PRINT:
 db 'ByeWorld ! ', 0
 
 HEXA_BASE:
-db '0x0000 ', 0
+db '0x0000', 0
 
 HEXA_ASCII:
 db '0123456789abcdef', 0
