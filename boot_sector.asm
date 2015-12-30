@@ -4,27 +4,54 @@ ADDRESS_START equ 0x7c00
 
 [org ADDRESS_START]
 
-mov bx , MSG_REAL_MODE
+; Set stack to 0x8000
+mov bp, 0x8000
+mov sp, bp
+
+
+mov bx, MSG_REAL_MODE
 call print_string
 
-mov bx , 'x'
+mov bx, 'x'
 call print_char
 
+mov dx, 0x1bf0
+call print_hex
+
+
+; Load more sectors to memory
+mov bx, 0x9000
+; Load 5 sectors to 0x0000 ( ES ):0x9000 ( BX )
+mov dh, 5
+mov dl, [BOOT_DRIVE]
+
+call disk_load
+mov dx, [0x9000]
+call print_hex
+
+mov dx, [0x9000 + 512]
+call print_hex
+
+mov dx, [0x9000 + 2*512]
+call print_hex
+
+mov dx, [0x9000 + 3*512]
+call print_hex
+
+mov dx, [0x9000 + 4*512]
+call print_hex
+
+jmp $
 
 cli
 
 ; Pass the GDT descriptor to the CPU
-
 lgdt [gdt_descriptor]
 
 ; Make the switch by setting by setting cr0
-
-
 mov eax, cr0
-or eax, 0x1	; Set the first bit of CR0
+or eax, 0x1
 mov cr0, eax
-
-
 
 ;Make a far jump to force the CPU flushing its cache of instructions
 jmp CODE_SEG:init_protected_mode
@@ -44,21 +71,14 @@ init_protected_mode:
 	mov ebp, 0x90000
 	mov esp, ebp
 
+
 	call clean_screen_pm
 	call START_CODE_PROTECTED_MODE
 
 
-
+%include "./include/disk_load_rm.asm"
 %include "./include/print_function_rm.asm"
 %include "./include/protected_mode.asm"
-
-
-; Global variables
-MSG_REAL_MODE db "Started Real Mode ", 0
-MSG_PROT_MODE db "Started Protected Mode ", 0
-
-
-
 
 
 
@@ -107,8 +127,20 @@ DATA_SEG equ 16
 
 
 
+; Global variables
+MSG_REAL_MODE: db "Started Real Mode ", 0
+MSG_PROT_MODE: db "Started Protected Mode ", 0
+BOOT_DRIVE: db 0
 
-
-
-times 510 -( $ - $$ ) db 0
+times 510 -($ - $$) db 0
 dw 0xAA55
+
+times 256 dw 0xDADA
+times 256 dw 0xBABA
+times 512 db 0x00
+times 512 db 0x12
+times 512 db 0x35
+
+
+
+

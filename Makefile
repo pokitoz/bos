@@ -17,4 +17,6 @@ asm_hex:
 
 clean:
 	rm *.bin
+	rm *~
+	rm include/*~
 	
