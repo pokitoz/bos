@@ -41,7 +41,6 @@ call print_hex
 mov dx, [0x9000 + 4*512]
 call print_hex
 
-jmp $
 
 cli
 
@@ -123,9 +122,6 @@ dd gdt_start
 ; 3 LSB are not used!
 CODE_SEG equ 8
 DATA_SEG equ 16
-
-
-
 
 ; Global variables
 MSG_REAL_MODE: db "Started Real Mode ", 0
