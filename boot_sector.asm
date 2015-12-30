@@ -44,9 +44,7 @@ init_protected_mode:
 	mov ebp, 0x90000
 	mov esp, ebp
 
-
-jmp $
-
+	call clean_screen_pm
 	call START_CODE_PROTECTED_MODE
 
 
